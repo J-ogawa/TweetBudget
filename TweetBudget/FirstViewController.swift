@@ -11,12 +11,19 @@ import Social
 import Accounts
 
 class FirstViewController: UIViewController {
-
+    
+    @IBOutlet weak var itemField: UITextField!
+    @IBOutlet weak var priceField: UITextField!
+    @IBOutlet weak var itemPicker: UIPickerView!
+    @IBOutlet weak var pricePicker: UIPickerView!
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     override func viewDidAppear(animated: Bool) {
+    }
+    
+    func tweet(text: String) {
         let accountStore = ACAccountStore()
         let accountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
         
@@ -36,10 +43,9 @@ class FirstViewController: UIViewController {
                         let params = NSDictionary(object: "食材 ¥500", forKey: "status")
                         var request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.POST, URL: url, parameters: params)
                         request.account = twitterAccount
-//                        request.performRequestWithHandler({ (responseData, urlResponse, error) -> Void in
-//                            let resStr = NSString(data: responseData, encoding: NSUTF8StringEncoding)
-//                            println(resStr)
-//                        })
+                        request.performRequestWithHandler({ (responseData, urlResponse, error) -> Void in
+                            let resStr = NSString(data: responseData, encoding: NSUTF8StringEncoding)
+                        })
                     }
                 }
                 else {
@@ -47,17 +53,7 @@ class FirstViewController: UIViewController {
                 }
             }
             println("aaa")
-            
         }
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
-    
-    
 }
 
